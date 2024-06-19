@@ -1,0 +1,46 @@
+<!-- <div class="bg-white shadow-lg rounded-lg p-4 mb-4 transform hover:scale-x-105 transition duration-500 ease-out"> -->
+<div class="bg-white shadow-lg rounded-lg p-4 mb-4 hover:shadow-2xl hover:bg-gray-100 transition duration-300 ease-in-out ">
+
+    <div class="flex items-center mb-2">
+        <img src="assets/profile1.png" alt="Profile Picture" class="h-8 w-8 rounded-full mr-2">
+        <div class="flex items-center justify-between flex-grow"> <!-- Added flex-grow here -->
+          <span class="text-gray-700 font-bold">{{ post.username }}</span>
+          <span class="text-gray-700 font-light">{{ post.time }}</span>
+        </div>
+      </div>
+      
+    <p class="text-gray-800 mb-2 ">{{ post.content }}</p>
+  
+    
+    <!-- Vote Section -->
+    <div class="flex items-center mb-2">
+  <!-- Upvote Button -->
+  <button class="text-gray-700 mr-2" (click)="upvotePost()">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+  <!-- Display Upvotes -->
+  <span [style.color]=" post.votes > 0 ? 'green' : post.votes < 0 ? 'red' : 'gray'"
+        class="ml-1">{{ post.votes > 0 ? '+' : '' }}{{ post.votes }}</span>
+  <!-- Downvote Button -->
+  <button class="text-gray-700 ml-2" (click)="downvotePost()">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </button>
+</div>
+    <!-- Add Comment Section -->
+    <form class="flex items-center">
+      <input type="text" class="flex-1 border rounded-md py-2 px-4 mr-2" placeholder="Add a comment...">
+      <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md">Add Comment</button>
+    </form>
+    <br/>
+      <!-- View Comments Button -->
+  <button class="bg-teal-500 text-white px-4 py-2 rounded-md mb-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer" 
+  routerLink="login"
+  >
+    View Comments
+  </button>
+  </div>
+  
