@@ -1,0 +1,38 @@
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- Background overlay for blur effect -->
+    <!-- <div class="fixed inset-0 bg-gray-800 opacity-50 blur-3xl" [class.hidden]="!showModal"></div> -->
+    <div class="blur-background" *ngIf="showModal"></div>
+
+    <div class=" backdrop-blur-sm w-screen h-screen p-6 rounded-lg shadow-lg relative flex flex-row justify-center">
+    <div class=" bg-white w-96 p-6 rounded-lg shadow-lg relative h-3/6 mt-8">
+      <button class="absolute top-2 right-2 text-gray-600 hover:text-red-500" (click)="onCloseForm()">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+  
+      <h2 class="text-xl font-semibold mb-4">Create Post</h2>
+  
+      <form (ngSubmit)="submitForm()">
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input type="text" id="title" name="title" [(ngModel)]="post.title" required
+                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+        </div>
+  
+        <div class="mb-4">
+          <label for="posts" class="block text-sm font-medium text-gray-700">Posts</label>
+          <textarea id="posts" name="posts" [(ngModel)]="post.content" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+        </div>
+  
+        <div class="flex justify-end">
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+  

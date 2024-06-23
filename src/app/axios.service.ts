@@ -11,31 +11,20 @@ export class AxiosService {
     axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
-  getAuthToken(): string | null {
-    return window.localStorage.getItem("auth_token");
-  }
+  request(method: string, url: string, data: any, isAuthenticated?: boolean): Promise<any> {
+    let headers: any = {
+      'Content-Type': 'application/json' // Default header
+    };
 
-  setAuthToken(token: string | null): void {
-    if (token !== null) {
-      window.localStorage.setItem("auth_token", token);
-    } else {
-      window.localStorage.removeItem("auth_token");
+    if (isAuthenticated) {
+      headers.Authorization = `Bearer ${window.localStorage.getItem("auth_token")}`;
     }
-  }
 
-
-  request(method: string, url: string, data: any): Promise<any> {
-      let headers: any = {};
-
-      if (this.getAuthToken() !== null) {
-          headers = {"Authorization": "Bearer " + this.getAuthToken()};
-      }
-
-      return axios({
-          method: method,
-          url: url,
-          data: data,
-          headers: headers
-      });
+    return axios({
+      method: method,
+      url: url,
+      data: data,
+      headers: headers
+    });
   }
 }

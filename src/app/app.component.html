@@ -2,22 +2,13 @@
   <app-header></app-header>
 </div>
 
-<div class="relative pt-16">
-  <div class="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-slate-100">
-       <!-- style="background-image: url('assets/doodle_bg.jpeg'); z-index: -1;"> --> 
+<div class="relative pt-16 m-6 flex justify-center items-center">
+  <div class="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-gradient-to-b from-white to-sky-200">
   </div>
   
-  <div class="relative z-10">
-    <!-- <app-signup></app-signup> -->
-    <div class="container mx-auto mt-4">
-      <!-- <h1 class="text-3xl font-bold underline mb-4">
-        Hello world!
-      </h1> -->
-      <!-- <app-post-content></app-post-content> -->
+  <div class="relative z-10 w-full max-w-screen-lg">
+    <div class="mx-auto mt-4">
       <router-outlet></router-outlet>
-      
-      <!-- <app-comment [comment]="{ content: 'sample comment', username: 'Mj', votes: 0, time: '2:21' }"></app-comment> -->
-      
     </div>
   </div>
 </div>

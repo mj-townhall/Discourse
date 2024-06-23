@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { SignupData } from '../../Model/SignupData';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +14,7 @@ export class SignupComponent implements OnInit {
   showHidePassword: string = "password";
   hidePassword: boolean = true;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService :AuthService, private router:Router) {
     // Initialize the form in the constructor
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -54,12 +57,13 @@ export class SignupComponent implements OnInit {
     // Check if form is valid
     if (this.signupForm.invalid) {
       // Handle invalid form submission if needed
-      console.log("All fields are required and must be filled correctly.");
+      alert("All fields are required and must be filled correctly.");
       return;
     }
-
-    // If all validations pass, proceed with signup logic
+    const signupData :SignupData= this.signupForm.value as SignupData;
+    this.authService.signup(signupData);    
     console.log('Form submitted with:', this.signupForm.value);
+    this.router.navigate(['login']);
     // Example: Call an API to register user
   }
 

@@ -1,0 +1,12 @@
+.blur-3xl {
+    backdrop-filter: blur(20px); /* Adjust blur strength as needed */
+  }
+  
+.blur-background {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+    backdrop-filter: blur(10px); /* Adjust blur amount as needed */
+    z-index: 50; /* Ensure it covers the entire viewport */
+  }
+  

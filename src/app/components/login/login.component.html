@@ -1,0 +1,54 @@
+<div class="container mx-auto mt-8 flex justify-around items-center">
+  <!-- Form Section -->
+  <div class="w-full max-w-lg">
+    <h2 class="text-2xl font-bold mb-4">Log In</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-full">
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+        <input type="email" id="email" formControlName="email"
+               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               placeholder="abc@email.com">
+        <!-- Error message for required and email format -->
+        <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+             class="text-red-500 text-sm mt-1">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
+        <div class="relative">
+          <input [type]="showHidePassword" id="password" formControlName="password"
+                 class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          <button type="button" class="absolute right-0 top-0 mt-2 mr-3" (click)="togglePasswordVisibility()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+              <path *ngIf="hidePassword" d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+              <path *ngIf="!hidePassword" fill-rule="evenodd" d="M18.95 9.95a10.95 10.95 0 01-1.451 2.13l1.416 1.416a.5.5 0 01-.707.707l-1.416-1.416A10.95 10.95 0 0110 18c-2.555 0-4.895-.879-6.739-2.339l-1.434 1.434a.5.5 0 01-.707-.707l1.434-1.434A10.95 10.95 0 011.05 9.95 10.95 10.95 0 013 7a11 11 0 0111-11 10.95 10.95 0 014.95 9.95zM10 16a6 6 0 100-12 6 6 0 000 12z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Error message for required password -->
+        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+             class="text-red-500 text-sm mt-1">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="loginForm.invalid"
+              class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+                     disabled:bg-gray-300 disabled:text-gray-500 disabled:opacity-50">
+        Log In
+      </button>
+    </form>
+  </div>
+
+  <!-- Image Section (on the right) -->
+  <div class="ml-4">
+    <img src="assets/side1.webp" alt="Image description" class="w-64 h-auto">
+  </div>
+</div>

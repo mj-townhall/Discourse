@@ -7,14 +7,18 @@ import { Component, Input } from '@angular/core';
 })
 export class CommentComponent {
   @Input() comment: any;
-
-  upvotePost() {
+  isExpanded :boolean =false
+  
+  upVote() {
     // Implement upvoting logic here
     this.comment.votes++; // Example: Increment upvotes count
   }
 
-  downvotePost() {
+  downVote() {
     // Implement downvoting logic here
     this.comment.votes--; // Example: Increment downvotes count
+  }
+  toggleExpand(){
+    this.isExpanded=!this.isExpanded
   }
 }
