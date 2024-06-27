@@ -66,7 +66,7 @@
             <!-- fake div for alignment purpose-->
         </div>
         <!-- Delete Post Button -->
-        <button *ngIf="showDeleteButton"
+        <button *ngIf="showDeleteButton && isLoggedIn"
                 class="relative text-black px-3 py-1 rounded-tl-md rounded-br-md transform hover:scale-110 transition duration-300 ease-out cursor-pointer group"
                 (click)="onDeletePostClick()" title="Delete Post">
         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
