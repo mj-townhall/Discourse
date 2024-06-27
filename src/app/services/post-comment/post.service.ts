@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AxiosService } from '../../axios.service';
 import { Post } from '../../Model/Post';
 import { AuthService } from '../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 export class PostService {
   private postData: Post[] = []; // Private to encapsulate access
   showModal :boolean =false;
-  constructor(private axiosService: AxiosService, private authService :AuthService) {}
+  constructor(private axiosService: AxiosService, private authService :AuthService, private toastr:ToastrService) {}
 
   async getPosts(userId: number | null): Promise<Post[]> {
     if (userId === null) {
@@ -36,16 +37,18 @@ export class PostService {
   }
 
   private async fetchAllPostsByUser(userId: number): Promise<void> {
+    let response;
     try {
-      const response = await this.axiosService.request('GET', `/api/post/${userId}`, {}, true);
+       response = await this.axiosService.request('GET', `/api/post/${userId}`, {}, true);
       this.postData = response.data as Post[];
     } catch (error) {
       console.error('Error fetching posts:', error);
       this.postData = []; // Reset to empty array on error
     }
+    // console.log(response.data)
   }
 
-  async getComments(postId : number) :Promise<void>{
+  async getComments(postId : number) :Promise<any[]>{
     const response=await this.axiosService.request('GET', `/api/comment/${postId}`, {});
     // convertToDate()
     this.convertToDate(response.data);
@@ -57,9 +60,7 @@ export class PostService {
         userData: {
           id: this.authService.getUserId()
         },
-        "postData": {
-          "id": comment.postId
-        },
+        postId:comment.postId,
         "createdAt": 767,   //any random no. as it will be handled in backend
         "content": comment.content,
         "votes" :0
@@ -74,8 +75,13 @@ export class PostService {
           id: this.authService.getUserId() 
         },
         title :post.title,
-        votes :0
+        votes :0,
+        editBy: this.authService.getUserId()
     }, true);
+    this.toastr.info("comment added")
+  setTimeout(() => {
+    window.location.reload()
+  }, 2000);
     return response.data;
   }
   async deletePost(postId : number) :Promise<void>{
@@ -93,8 +99,13 @@ export class PostService {
       },
       title :post.title,
       votes :post.votes,
-      id: post.id
+      id: post.id,
+      editBy: this.authService.getUserId()
     },true);
+    if(response.data.message==="already voted"){
+      this.toastr.info("You have already voted")
+      } 
+    setTimeout(()=>{window.location.reload();},2000);
     // return response.data;
   }
 

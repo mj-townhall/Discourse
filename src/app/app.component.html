@@ -4,6 +4,34 @@
 
 <div class="relative pt-16 m-6 flex justify-center items-center">
   <div class="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-gradient-to-b from-white to-sky-200">
+</div>
+  
+  <div class="relative z-10 w-full max-w-screen-lg flex flex-row">
+    <div class="mx-auto w-5/6 mt-4">
+      <router-outlet></router-outlet>
+    </div>
+    <div *ngIf="showAd" class="flex flex-col justify-start">
+      <div>Ad</div>
+      <div class="w-72 mt-2 md-10">
+        <iframe id="ts-iframe" src="https://www.tsdugout.in/v2/widget/trial-event-023012/booking" frameborder="0" height="600" width="145%"></iframe>
+        <link rel="stylesheet" href = "https://www.tsdugout.in/static/Bookingflow/css/ts-iframe.style.css" >
+      </div>
+      <div>
+        <button onclick="popup('trial-event-023012');" class="tsbutton bg-indigo-700 text-white">Register
+          Now</button><noscript id="tsNoJsMsg">Javascript
+          on your browser is not enabled.</noscript>
+          <script src="https://www.tsdugout.in/static/Bookingflow/js/townscript-widget.nocache.js"
+          type="text/javascript"></script>
+      </div>
+  </div>
+  </div>
+</div>
+<!-- <div [ngClass]="{'dark': prefersDarkMode}" class="fixed top-0 left-0 w-full shadow-md z-50 bg-white dark:bg-gray-900">
+  <app-header></app-header>
+</div>
+
+<div [ngClass]="{'dark': prefersDarkMode}" class="relative pt-16 m-6 flex justify-center items-center">
+  <div class="fixed top-0 left-0 w-full h-full bg-cover bg-center bg-gradient-to-b from-white to-sky-200 dark:from-gray-900 dark:to-gray-800">
   </div>
   
   <div class="relative z-10 w-full max-w-screen-lg">
@@ -11,4 +39,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-</div>
+</div> -->

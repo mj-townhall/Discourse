@@ -4,6 +4,7 @@ import { Post } from '../Model/Post';
 import { PostService } from '../services/post-comment/post.service';
 import { Comment } from '../Model/Comment';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-content',
@@ -16,31 +17,37 @@ export class PostContentComponent implements OnInit {
   userId: number | null = null; 
   showComments : boolean =false;
   selectedPostId: number | null = null;
-
+  commentSizeMap :Map<number, number> = new Map<number, number>()  ;
+  isLoading =false
   constructor(
     private postService: PostService,
     private route: ActivatedRoute ,
-    private router:Router
+    private router:Router,
+    private toastr:ToastrService
   ) {}
 
   async ngOnInit() {
-    // console.log('Current Route:', this.router.url);
-    // Check if current route is '/posts/:userId'
     if (this.router.url.startsWith('/post/')) {
       const segments = this.router.url.split('/');
-      // console.log(segments);
-      if (segments.length === 3) { // Expecting '/posts/:userId', so segments length should be 3
+      if (segments.length === 3) {
         const userIdFromRoute = segments[2];
-        // console.log("current userId --",userIdFromRoute);
-        this.userId = +userIdFromRoute; // Convert to number, if required
+        this.userId = +userIdFromRoute;
       }
     }
-    // else console.log("url not found")
-    this.data = await this.postService.getPosts(this.userId) as Post[];
-    // console.log(this.data);
-    for (let post of this.data) {
-      const comments :any= await this.postService.getComments(post.id);
-      this.commentData.set(post.id, comments);
+
+    try {
+      this.data = await this.postService.getPosts(this.userId) as Post[];
+
+      for (let post of this.data) {
+        const comments = await this.postService.getComments(post.id) as Comment[];
+        this.commentData.set(post.id, comments);
+        this.commentSizeMap.set(post.id, comments.length);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setTimeout(()=>this.isLoading = false,2000)
+       // Set isLoading to false after data fetching completes
     }
   }
   toggleViewComments(postId: number): void {
@@ -67,7 +74,12 @@ onEditPost(postId: number): void {
 }
 addNewComment(commentData :Comment){
   this.postService.addComment(commentData);
-  window.location.reload()
+  this.toastr.info("comment added")
+  setTimeout(() => {
+    window.location.reload()
+  this.ngOnInit()
+  }, 2000);
+  
 
 }
 
