@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,6 +16,9 @@ export class HeaderComponent implements OnInit {
   private unsubscribe$ = new Subject<void>();
   showModal :boolean=false;
   showMyPostButton :boolean =true;
+  currentUserName :string | null ="";
+  showLogout  : boolean =false;
+  isDropdownOpen :boolean=false
   // toastr=inject(ToastrService);
   constructor(private router: Router, private authService: AuthService, private toastr:ToastrService) { }
 
@@ -27,8 +31,9 @@ export class HeaderComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isLoggedIn => {
         this.isLoggedIn = isLoggedIn;
+        this.currentUserName= localStorage.getItem("user_name")
       });
-
+      console.log(this.currentUserName)
       // to check currently showing my post or all post
   }
   isShowingAllPost():boolean{
@@ -80,5 +85,13 @@ export class HeaderComponent implements OnInit {
 
   closeCreatePostForm() {
     this.showModal = false;
+  }
+
+  toggleLogout(): void {
+    this.showLogout = !this.showLogout;
+  }
+
+  toggleDropdown(){
+    this.isDropdownOpen=!this.isDropdownOpen
   }
 }

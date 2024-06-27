@@ -38,12 +38,15 @@
         </div>
       </div>
 
-      <!-- Submit Button -->
-      <button type="submit" [disabled]="loginForm.invalid"
-              class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
-                     disabled:bg-gray-300 disabled:text-gray-500 disabled:opacity-50">
-        Log In
-      </button>
+      <div clas="flex items-center justify-between flex-grow">
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="loginForm.invalid"
+                class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
+                      disabled:bg-gray-300 disabled:text-gray-500 disabled:opacity-50">
+          Log In
+        </button>
+        <span routerLink="/signup" class="ml-12 text-teal-500 cursor-pointer underline">New User, Signup here!</span>
+      </div>
     </form>
   </div>
 

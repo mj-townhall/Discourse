@@ -28,6 +28,7 @@ export class PostsCardComponent {
     @Input() post: any;
     @Input() showComments: boolean = false;
     @Input() selectedPostId :number |null=null;
+    @Input() commentSize :number|undefined;
     showDeleteButton: boolean = false;
     newCommentText: string = '';
     newCommentDataBuilder: Comment | null = null; 
@@ -68,6 +69,7 @@ export class PostsCardComponent {
       .subscribe(isLoggedIn => {
         this.isLoggedIn = isLoggedIn;
       });
+      // console.log(this.commentSize)
     }
 
     omViewCommentsClick(): void {

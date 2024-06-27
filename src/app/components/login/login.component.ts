@@ -47,4 +47,8 @@ export class LoginComponent implements OnInit {
     this.showHidePassword = this.showHidePassword === "text" ? "password" : "text";
     this.hidePassword = !this.hidePassword;
   }
+
+  onClickNewUser(){
+    this.router.navigate(['home']);
+  }
 }

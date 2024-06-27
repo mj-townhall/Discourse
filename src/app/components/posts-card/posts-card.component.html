@@ -1,8 +1,9 @@
-<div class="bg-gradient-to-b from-white to-sky-100 shadow-lg rounded-lg p-4 mb-4 hover:shadow-2xl hover:bg-gray-100 hover:scale-x-105 transition duration-300 ease-in-out relative w-5/6" [@fadeInOut]>
+<div class="bg-white shadow-lg rounded-lg p-4 mb-4 hover:shadow-2xl hover:bg-gray-100  transition duration-300 ease-in-out relative w-5/6" [@fadeInOut]>
     <div class="flex items-center mb-2">
       <img src="assets/profile1.png" alt="Profile Picture" class="h-8 w-8 rounded-full mr-2">
       <div class="flex items-center justify-between flex-grow">
         <span class="text-gray-700 font-bold">{{ post.firstName + " " + post.lastName }}</span>
+        <span class="text-gray-700 font-bold"> {{post.title}} </span>
         <span class="text-gray-700 font-light">{{ post.date }}</span>
       </div>
     </div>
@@ -18,7 +19,7 @@
           {{ post.content }}
         </p>
       </ng-template>
-      <!-- Read more/less link -->
+      <!-- Read more/less  -->
       <div class="text-teal-400 cursor-pointer" *ngIf="post.content.length > 150" (click)="toggleExpand()">
         {{ isExpanded ? 'Read less' : 'Read more' }}
       </div>
@@ -29,7 +30,7 @@
       <!-- Vote Section -->
       <div class="flex items-center mb-2">
         <!-- Upvote Button -->
-        <button class="text-gray-700 mr-2" (click)="upvotePost()">
+        <button class="text-gray-700 mr-2 relative " (click)="upvotePost()" matTooltip="Upvote">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
           </svg>
@@ -39,7 +40,7 @@
           {{ post.votes > 0 ? '+' : '' }}{{ post.votes }}
         </span>
         <!-- Downvote Button -->
-        <button class="text-gray-700 ml-2" (click)="downvotePost()">
+        <button class="text-gray-700 ml-2" (click)="downvotePost()"  matTooltip="Downvote">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
@@ -55,22 +56,28 @@
       <br />
     </div>
   
-    <!-- View Comments Button -->
-    <div class="mb-2 cursor-pointer text-teal-400 transform hover:underline" (click)="omViewCommentsClick()">
-      {{ (post.id === selectedPostId) ? (showComments ? "Hide Comments" : "Show Comments") : "Show Comments" }}
+    <div class="flex items-center justify-between flex-grow">
+        <!-- View Comments Button -->
+        <div *ngIf="commentSize" class="mb-2 cursor-pointer text-teal-400 transform hover:underline" (click)="omViewCommentsClick()">
+        {{ (post.id === selectedPostId) ? (showComments ? "Hide Comments" : "Show Comments") : "Show Comments" }}
+        </div>
+        <div *ngIf="!commentSize" class="text-gray-500">No comments</div>
+        <div>
+            <!-- fake div for alignment purpose-->
+        </div>
+        <!-- Delete Post Button -->
+        <button *ngIf="showDeleteButton"
+                class="relative text-black px-3 py-1 rounded-tl-md rounded-br-md transform hover:scale-110 transition duration-300 ease-out cursor-pointer group"
+                (click)="onDeletePostClick()" title="Delete Post">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        <span
+            class="opacity-0 bg-gray-700 text-white text-xs rounded-md py-1 px-2 absolute top-0 left-full ml-2 mt-2 whitespace-nowrap pointer-events-none transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+            Delete Post
+        </span>
+        </button>
     </div>
-  
-    <!-- Delete Post Button -->
-    <button *ngIf="showDeleteButton"
-            class="relative bg-white text-black px-3 py-1 rounded-tl-md rounded-br-md transform hover:scale-110 transition duration-300 ease-out cursor-pointer group"
-            (click)="onDeletePostClick()" title="Delete Post">
-      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-      <span
-        class="opacity-0 bg-gray-700 text-white text-xs rounded-md py-1 px-2 absolute top-0 left-full ml-2 mt-2 whitespace-nowrap pointer-events-none transition-opacity duration-300 ease-in-out group-hover:opacity-100">Delete
-        Post</span>
-    </button>
 
 
     <!-- <button (click)="openCreatePostForm()"  class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer">Edit Post</button>

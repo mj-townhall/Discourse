@@ -1,29 +1,64 @@
    <header class="bg-gradient-to-b from-teal-500 to-sky-300 p-4 flex items-center justify-between ">
     <h1 class ="font-extrabold font-serif text-3xl cursor-pointer " (click)="navigateToHomePage()" >Discourse</h1>
-    <div class="flex items-end">
+    <div class="">
       <img src="assets/people2.png" alt="Logo" class="h-14   rounded">
     </div>
     <div>
-      <div *ngIf="isLoggedIn">
-        <button *ngIf="isShowingAllPost()" class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToMyPost()">
-          Manage My Posts
-        </button>
-        <button *ngIf="!isShowingAllPost()" class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToHomePage()">
-          All Posts
-        </button>
-        <!-- parent.component.html -->
-        <button (click)="openCreatePostForm()"  class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer">Create Post</button>
-        <app-add-post *ngIf="showModal" (closeForm)="closeCreatePostForm()"></app-add-post>
-        <button class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 hover:bg-red-500 hover:text-white transition duration-300 ease-out cursor-pointer" (click)="logout()" routerLink="home">
-          Logout
-        </button>
-
+    <div *ngIf="isLoggedIn" class="flex items-center justify-around">
+        <!-- First button -->
+        <div>
+          <!-- <button *ngIf="isShowingAllPost()" class=" hover:bg-gradient-to-b from-teal-200 to-sky-300  text-xl text-black px-4 py-2 rounded-md ml-4 mr-2  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToMyPost()">
+            My Posts
+          </button> -->
+        </div>
+      
+        <!-- Second button -->
+        <div>
+          <button *ngIf="!isShowingAllPost()" class="text-xl hover:text-blue-700 rounded-xl  text-black px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer" (click)="navigateToHomePage()">
+            <mat-icon aria-hidden="false" class="text-xl md-4" >view_list</mat-icon>
+            <span class="text-xl mt-2">All Post</span>
+          </button>
+        </div>
+      
+        <!-- Third button -->
+        <div>
+          <button (click)="openCreatePostForm()" class="flex flex-row items-center   hover:text-blue-700 rounded-xl  text-black px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer">
+            <mat-icon aria-hidden="false" class="text-xl md-4" >post_add</mat-icon>
+            <span class="text-xl mt-2">Create Post</span>
+          </button>
+          <app-add-post *ngIf="showModal" (closeForm)="closeCreatePostForm()"></app-add-post>
+        </div>
+      
+        <!-- Fourth button (logout) -->
+        <div class="flex flex-col items-center text-black   hover:text-blue-700 rounded-xl transition duration-300 ease-out cursor-pointer" (click)="toggleDropdown()">
+          <mat-icon aria-hidden="false" >person</mat-icon>
+          <span>{{currentUserName}}</span>
+        
+        <div *ngIf="isDropdownOpen" class="mt-12 absolute right-0 bg-white rounded-lg shadow-lg" >
+          <ul class="py-1">
+            <li>
+              <button *ngIf="isShowingAllPost()" class="block px-4 py-2 text-gray-800 hover:bg-teal-200 w-full text-left flex justify-start transition duration-300 ease-out cursor-pointer" (click)="navigateToMyPost()">
+                <mat-icon aria-hidden="false" class="mr-2" >edit</mat-icon>
+                <span>Manage My Posts</span>
+              </button>
+            </li>
+            <li>
+              <button class="block px-4 py-2 text-gray-800 hover:bg-teal-200 w-full text-left flex justify-start" (click)="logout()">
+                <mat-icon aria-hidden="false" class=" mr-2 text-black   hover:text-red-700 rounded-xl transition duration-300 ease-out cursor-pointer">logout</mat-icon>
+                <span>Logout</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
+      
+    </div>
+      
       <div *ngIf="!isLoggedIn">
-        <button class="bg-white text-teal-500 px-4 py-2 rounded-md mr-2 transform hover:scale-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToSignupPage()" routerLink="home">
+        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-black px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToSignupPage()" >
           Signup
         </button>
-        <button class="bg-white text-teal-500 px-4 py-2 rounded-md transform hover:scale-110 transition duration-300 ease-out cursor-pointer"  (click)="navigateToLoginPage()" >
+        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-black px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer"  (click)="navigateToLoginPage()" >
           Login
         </button>
       </div>
