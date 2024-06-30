@@ -1,5 +1,5 @@
-   <header class="bg-gradient-to-b from-teal-500 to-sky-300 p-4 flex items-center justify-between ">
-    <h1 class ="font-extrabold font-serif text-3xl cursor-pointer " (click)="navigateToHomePage()" >Discourse</h1>
+   <header class="bg-dark-blue p-4 flex items-center justify-between ">
+    <h1 class ="font-extrabold font-mono text-3xl cursor-pointer text-white " (click)="navigateToHomePage()" >Discourse</h1>
     <div class="">
       <img src="assets/people2.png" alt="Logo" class="h-14   rounded">
     </div>
@@ -14,7 +14,7 @@
       
         <!-- Second button -->
         <div>
-          <button *ngIf="!isShowingAllPost()" class="text-xl hover:text-blue-700 rounded-xl  text-black px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer" (click)="navigateToHomePage()">
+          <button *ngIf="!isShowingAllPost()" class="text-xl hover:text-blue-700 rounded-xl  text-white px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer" (click)="navigateToHomePage()">
             <mat-icon aria-hidden="false" class="text-xl md-4" >view_list</mat-icon>
             <span class="text-xl mt-2">All Post</span>
           </button>
@@ -22,7 +22,7 @@
       
         <!-- Third button -->
         <div>
-          <button (click)="openCreatePostForm()" class="flex flex-row items-center   hover:text-blue-700 rounded-xl  text-black px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer">
+          <button (click)="openCreatePostForm()" class="flex flex-row items-center   hover:text-blue-700 rounded-xl  text-white px-4 py-2 mr-2  transform transition duration-300 ease-out cursor-pointer">
             <mat-icon aria-hidden="false" class="text-xl md-4" >post_add</mat-icon>
             <span class="text-xl mt-2">Create Post</span>
           </button>
@@ -30,7 +30,7 @@
         </div>
       
         <!-- Fourth button (logout) -->
-        <div class="flex flex-col items-center text-black   hover:text-blue-700 rounded-xl transition duration-300 ease-out cursor-pointer" (click)="toggleDropdown()">
+        <div class="flex flex-col items-center text-white   hover:text-blue-700 rounded-xl transition duration-300 ease-out cursor-pointer" (click)="toggleDropdown()">
           <mat-icon aria-hidden="false" >person</mat-icon>
           <span>{{currentUserName}}</span>
         
@@ -55,10 +55,10 @@
     </div>
       
       <div *ngIf="!isLoggedIn">
-        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-black px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToSignupPage()" >
+        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-white px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer" (click)="navigateToSignupPage()" >
           Signup
         </button>
-        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-black px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer"  (click)="navigateToLoginPage()" >
+        <button class="hover:bg-gradient-to-b from-teal-200 to-sky-300 text-xl text-white px-4 py-2 rounded-md ml-4 mr-4  transform hover:scale-x-110 transition duration-300 ease-out cursor-pointer"  (click)="navigateToLoginPage()" >
           Login
         </button>
       </div>
